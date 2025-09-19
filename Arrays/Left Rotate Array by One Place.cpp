@@ -1,103 +1,82 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 🧠 Problem: Left Rotate Array by One Place
-// Given an array of size `n`, rotate it to the left by one position.
-// Example:
-// Input : arr = [1, 2, 3, 4, 5]
-// Output: arr = [2, 3, 4, 5, 1]
+// 🧠 Problem: Rotate an array by 1 position to the right
+// Example: arr = [1,2,3,4,5] → [5,1,2,3,4]
+// Constraints: 1 <= n <= 10^6
 
-// 🔴 Approach 1: Brute Force
+// ---------------------------------------------------
+// 🔴 Approach 1: Brute Force (using extra array)
 // Intuition:
-// Create a temporary array and shift all elements to the left by one index.
-// Place the first element at the end.
-
-// Algorithm:
-// 1. If array has 0 or 1 element, no rotation needed.
-// 2. Create a temp array.
-// 3. Copy elements with left shift.
-// 4. Place first element at the end.
-// 5. Copy back temp to original array.
-
+//   - Copy elements into a temporary array
+//   - Last element goes to first position
+//   - Rest are shifted by 1
+// ---------------------------------------------------
 // Time Complexity: O(n)
 // Space Complexity: O(n)
+class Solution1 {
+public:
+    void rotate(vector<int> &arr) {
+        int n = arr.size();
+        vector<int> temp(n);
 
-void leftRotateBrute(vector<int>& arr) {
-    int n = arr.size();
-    if (n == 0 || n == 1) return;
+        temp[0] = arr[n-1];           // last element becomes first
+        for (int i = 0; i < n-1; i++) {
+            temp[i+1] = arr[i];       // shift elements to right
+        }
 
-    vector<int> temp(n);
-    for (int i = 1; i < n; i++) {
-        temp[i - 1] = arr[i]; // shift left
+        arr = temp;                   // copy back to original array
     }
-    temp[n - 1] = arr[0]; // move first element to end
+};
 
-    for (int i = 0; i < n; i++) {
-        arr[i] = temp[i]; // copy back to original array
-    }
-}
-
-// 🔵 Approach 2: Better (In-Place)
+// ---------------------------------------------------
+// 🔵 Approach 2: Better (in-place shifting)
 // Intuition:
-// Store the first element in a variable, shift all others to the left,
-// and place the first element at the end.
-
-// Algorithm:
-// 1. Store arr[0] in a temp variable.
-// 2. Shift elements from index 1 to n-1 left by 1 position.
-// 3. Assign temp to arr[n-1].
-
+//   - Store the last element
+//   - Shift elements one step to the right
+//   - Put last element at first position
+// ---------------------------------------------------
 // Time Complexity: O(n)
 // Space Complexity: O(1)
+class Solution2 {
+public:
+    void rotate(vector<int> &arr) {
+        int n = arr.size();
 
-void leftRotateBetter(vector<int>& arr) {
-    int n = arr.size();
-    if (n == 0 || n == 1) return;
+        int last = arr[n-1];           // save last element
 
-    int temp = arr[0]; // store first element
-    for (int i = 1; i < n; i++) {
-        arr[i - 1] = arr[i]; // shift each element left
+        // shift elements right by one
+        for (int i = n-1; i > 0; i--) {
+            arr[i] = arr[i-1];
+        }
+
+        arr[0] = last;                 // put last at first
     }
-    arr[n - 1] = temp; // place first element at the end
-}
+};
 
-// 🟢 Approach 3: Optimal using STL (rotate function)
+// ---------------------------------------------------
+// 🟢 Approach 3: Optimal (using reverse trick)
 // Intuition:
-// Use C++ STL `rotate()` to rotate from `begin()` to `begin() + 1`
-
-// Algorithm:
-// Use std::rotate from algorithm header
-
+//   - Reverse whole array → [5,4,3,2,1]
+//   - Reverse subarray from 1 to n-1 → [5,1,2,3,4]
+// ---------------------------------------------------
 // Time Complexity: O(n)
 // Space Complexity: O(1)
-
-void leftRotateOptimal(vector<int>& arr) {
-    if (arr.size() <= 1) return;
-    rotate(arr.begin(), arr.begin() + 1, arr.end());
-}
-
-// 🔍 Utility to print array
-void printArray(const vector<int>& arr) {
-    for (int val : arr) {
-        cout << val << " ";
+class Solution3 {
+public:
+    void rotate(vector<int> &arr) {
+        reverse(arr.begin(), arr.end());      // reverse entire array
+        reverse(arr.begin()+1, arr.end());    // reverse everything except first
     }
-    cout << endl;
-}
+};
 
-// 🧪 Driver Code
+// ---------------------------------------------------
 int main() {
     vector<int> arr = {1, 2, 3, 4, 5};
 
-    cout << "Original Array: ";
-    printArray(arr);
+    Solution3 s;   // try Solution1, Solution2, Solution3
+    s.rotate(arr);
 
-    // Try one of the following:
-    // leftRotateBrute(arr);
-    // leftRotateBetter(arr);
-    leftRotateOptimal(arr); // Best in practice
-
-    cout << "After Left Rotation by 1: ";
-    printArray(arr);
-
+    for (int x : arr) cout << x << " ";  // Output: 5 1 2 3 4
     return 0;
 }
