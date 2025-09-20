@@ -16,45 +16,28 @@ using namespace std;
 //    - Shift all elements right.
 //    - Place stored element at arr[0].
 
-// Time Complexity: O(n * k)
-// Space Complexity: O(1)
-
-void rightRotateBrute(vector<int>& arr, int k) {
-    int n = arr.size();
-    k = k % n;
-    for (int r = 0; r < k; r++) {
-        int last = arr[n - 1];
-        for (int i = n - 1; i > 0; i--) {
-            arr[i] = arr[i - 1];
-        }
-        arr[0] = last;
-    }
-}
-
-// 🔵 Approach 2: Better using Extra Space
-// Intuition:
-// Copy last k elements and first n-k elements into a temp array.
-
 // Time Complexity: O(n)
-// Space Complexity: O(n)
+// Space Complexity: O(d)
 
-void rightRotateBetter(vector<int>& arr, int k) {
+void rightRotateBrute(vector<int>& arr, int d) {
     int n = arr.size();
-    k = k % n;
-    vector<int> temp;
+    if (n <= 1 || d == 0) return;
 
-    // Copy last k elements
-    for (int i = n - k; i < n; i++) {
-        temp.push_back(arr[i]);
+    d %= n; // Handle d > n
+    vector<int> temp(d);
+
+    // Store last d elements
+    for (int i = 0; i < d; i++) {
+        temp[i] = arr[n - d + i];
     }
 
-    // Copy first n-k elements
-    for (int i = 0; i < n - k; i++) {
-        temp.push_back(arr[i]);
+    // Shift remaining elements right
+    for (int i = n - d - 1; i >= 0; i--) {
+        arr[i + d] = arr[i];
     }
 
-    // Copy back to original
-    for (int i = 0; i < n; i++) {
+    // Place stored elements at start
+    for (int i = 0; i < d; i++) {
         arr[i] = temp[i];
     }
 }
