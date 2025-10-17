@@ -143,56 +143,63 @@ Tere teacher ke style mein code likh raha hu, with clear comments aur variable n
 using namespace std;
 
 class Solution {
-public:
-    // BFS helper to detect cycle in undirected graph starting from 'start'
+  public:
+    // Helper function to detect a cycle in an undirected graph using BFS
     bool bfsCycle(int start, vector<vector<int>>& adj, vector<bool>& visited) {
-        // Queue stores {node, parent} pairs
+        // Queue stores pairs of {current_node, parent_node}
         queue<pair<int,int>> q;
-        visited[start] = true;
-        q.push({start, -1}); // Root node has no parent
+        visited[start] = true;               // Mark starting node as visited
+        q.push({start, -1});                 // Push root node with no parent (-1)
 
+        // Continue BFS until all reachable nodes are processed
         while(!q.empty()) {
-            int node = q.front().first;
-            int parent = q.front().second;
+            int node = q.front().first;      // Current node
+            int parent = q.front().second;   // Its parent
             q.pop();
 
-            // Visit all neighbors
+            // Traverse all adjacent (neighboring) nodes
             for(int neighbor : adj[node]) {
                 if(!visited[neighbor]) {
+                    // If neighbor not visited, mark visited and push to queue
                     visited[neighbor] = true;
                     q.push({neighbor, node});
                 }
                 else if(neighbor != parent) {
-                    // Visited neighbor that is not parent → cycle
+                    // If neighbor is visited and not parent → Cycle found
                     return true;
                 }
             }
         }
-        return false; // No cycle in this component
+
+        // No cycle found in this connected component
+        return false;
     }
 
-    // Main function to detect cycle in undirected graph
+    // Main function to detect a cycle in an undirected graph
     bool isCycle(int V, vector<vector<int>>& edges) {
-        // Step 1: Build adjacency list from edges
+        // Step 1: Build adjacency list from the given edge list
         vector<vector<int>> adj(V);
-        for(auto &e : edges) {
-            int u = e[0], v = e[1];
+        for(auto &edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
             adj[u].push_back(v);
-            adj[v].push_back(u); // undirected
+            adj[v].push_back(u); // Undirected graph → add both directions
         }
 
-        // Step 2: Track visited nodes
+        // Step 2: Initialize visited array for all nodes
         vector<bool> visited(V, false);
 
-        // Step 3: Check all components
+        // Step 3: Traverse each connected component of the graph
         for(int i = 0; i < V; i++) {
             if(!visited[i]) {
+                // If the component has a cycle → return true
                 if(bfsCycle(i, adj, visited))
-                    return true; // Cycle detected
+                    return true;
             }
         }
 
-        return false; // No cycle in any component
+        // Step 4: If no cycle found in any component → return false
+        return false;
     }
 };
 
@@ -201,7 +208,12 @@ int main() {
     Solution sol;
 
     int V = 4;
-    vector<vector<int>> edges = {{0,1},{0,2},{1,2},{2,3}};
+    vector<vector<int>> edges = {
+        {0, 1},
+        {0, 2},
+        {1, 2},
+        {2, 3}
+    };
 
     if(sol.isCycle(V, edges))
         cout << "Cycle Detected\n";
@@ -210,7 +222,6 @@ int main() {
 
     return 0;
 }
-
 ```
 
 **Improvements Suggested**:

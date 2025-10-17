@@ -1,7 +1,6 @@
-
 ## Problem: DFS of Graph
 
-* https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1
+- https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1
 
 **Problem Statement**:
 
@@ -48,6 +47,7 @@ Ek connected undirected graph diya hai, jisme `V` vertices hain, represented as 
 - **Hinglish**: Bhai, yeh graph ka sawal hai kyunki vertices aur edges hain, aur DFS se depth-wise traversal karna hai.
 
 **Company Tags**:
+
 - Accolite, Amazon, Samsung, Intuit.
 
 ---
@@ -55,10 +55,12 @@ Ek connected undirected graph diya hai, jisme `V` vertices hain, represented as 
 ### Concept: What, Why, How
 
 **What**:
+
 - Humein ek undirected graph ka DFS traversal karna hai, vertex 0 se shuru karke, aur neighbors ko adjacency list ke order mein visit karna hai.
 - Output ek list hai jo DFS order mein vertices deta hai.
 
 **Why**:
+
 - DFS traversal ka use hota hai:
   - **Connected Components**: Graph ke groups identify karne ke liye.
   - **Cycle Detection**: Graph mein cycles check karne ke liye.
@@ -66,6 +68,7 @@ Ek connected undirected graph diya hai, jisme `V` vertices hain, represented as 
 - **Hinglish**: Bhai, DFS se depth-wise exploration hota hai, jo groups, cycles, ya paths find karne ke kaam aata hai.
 
 **How**:
+
 - DFS use karenge:
   - Ek visited array banao to track visited vertices.
   - Ek result array banao DFS order store karne ke liye.
@@ -128,35 +131,35 @@ Tere teacher ke style mein code likh raha hu, with clear comments aur variable n
 ```cpp
 #include <bits/stdc++.h>
 using namespace std;
+class Solution {
+  public:
+    // Helper function to perform Depth First Search (DFS) recursively
+    void dfsTraversal(int node, vector<vector<int>>& adj, vector<bool>& visited, vector<int>& result) {
+        visited[node] = true;                // Mark the current node as visited
+        result.push_back(node);              // Add the current node to the DFS traversal result
 
-// DFS function to traverse graph depth-wise
-void dfs(int node, vector<int> adj[], vector<bool>& visited, vector<int>& result) {
-    // Mark current node as visited and add to result
-    visited[node] = true;
-    result.push_back(node);
-
-    // Check all neighbors of current node
-    for (int neighbor : adj[node]) {
-        // If neighbor is not visited, call DFS
-        if (!visited[neighbor]) {
-            dfs(neighbor, adj, visited, result);
+        // Traverse all the neighbors of the current node
+        for (int neighbor : adj[node]) {
+            // If the neighbor has not been visited yet, recursively perform DFS on it
+            if (!visited[neighbor]) {
+                dfsTraversal(neighbor, adj, visited, result);
+            }
         }
     }
-}
 
-// Function to perform DFS traversal starting from vertex 0
-vector<int> dfsOfGraph(int V, vector<int> adj[]) {
-    // Initialize visited array
-    vector<bool> visited(V, false);
-    // Result array to store DFS traversal
-    vector<int> result;
+    // Function to perform Depth First Traversal (DFS) of the given graph
+    vector<int> dfs(vector<vector<int>>& adj) {
+        int V = adj.size();                  // Number of vertices in the graph
+        vector<bool> visited(V, false);      // Track visited nodes to avoid revisiting
+        vector<int> result;                  // Store DFS traversal order
 
-    // Start DFS from vertex 0
-    dfs(0, adj, visited, result);
+        // Start DFS from vertex 0 (assuming graph is connected)
+        dfsTraversal(0, adj, visited, result);
 
-    return result;
-}
-
+        // Return the DFS traversal sequence
+        return result;
+    }
+};
 int main() {
     // Example input: adj = [[2,3,1], [0], [0,4], [0], [2]]
     int V = 5;
@@ -180,6 +183,7 @@ int main() {
 ```
 
 **Improvements Suggested**:
+
 - Code clean hai, aur teacher ke style mein `visited` aur `result` use kiya.
 - Comments detailed hain taaki har step samajh aaye.
 - `vector<bool>` use kiya for visited to optimize space, but `vector<char>` bhi use kar sakta hu for clarity.
@@ -191,21 +195,23 @@ int main() {
 ### Dry Run (Tabular Format)
 
 **Example Input**:
+
 - `V = 5`, `adj = [[2,3,1], [0], [0,4], [0], [2]]`
 - Expected Output: `[0, 2, 4, 3, 1]`
 
-| Step | Node | Visited Array | Result | Action |
-|------|------|---------------|--------|--------|
-| 1    | 0    | [T, F, F, F, F] | [0]    | Start DFS(0), mark visited[0]=true, add 0 to result. |
-| 2    | 2    | [T, F, T, F, F] | [0, 2] | Neighbors [2,3,1], call DFS(2) (first neighbor). Mark visited[2]=true, add 2. |
-| 3    | 4    | [T, F, T, F, T] | [0, 2, 4] | Neighbors of 2: [0,4], 0 visited, call DFS(4). Mark visited[4]=true, add 4. |
-| 4    | -    | [T, F, T, F, T] | [0, 2, 4] | Neighbors of 4: [2], visited. Backtrack to 2, then 0. |
-| 5    | 3    | [T, F, T, T, T] | [0, 2, 4, 3] | Neighbors of 0: [3,1], call DFS(3). Mark visited[3]=true, add 3. |
-| 6    | -    | [T, F, T, T, T] | [0, 2, 4, 3] | Neighbors of 3: [0], visited. Backtrack to 0. |
-| 7    | 1    | [T, T, T, T, T] | [0, 2, 4, 3, 1] | Neighbors of 0: [1], call DFS(1). Mark visited[1]=true, add 1. |
-| 8    | -    | [T, T, T, T, T] | [0, 2, 4, 3, 1] | Neighbors of 1: [0], visited. Backtrack, DFS complete. |
+| Step | Node | Visited Array   | Result          | Action                                                                        |
+| ---- | ---- | --------------- | --------------- | ----------------------------------------------------------------------------- |
+| 1    | 0    | [T, F, F, F, F] | [0]             | Start DFS(0), mark visited[0]=true, add 0 to result.                          |
+| 2    | 2    | [T, F, T, F, F] | [0, 2]          | Neighbors [2,3,1], call DFS(2) (first neighbor). Mark visited[2]=true, add 2. |
+| 3    | 4    | [T, F, T, F, T] | [0, 2, 4]       | Neighbors of 2: [0,4], 0 visited, call DFS(4). Mark visited[4]=true, add 4.   |
+| 4    | -    | [T, F, T, F, T] | [0, 2, 4]       | Neighbors of 4: [2], visited. Backtrack to 2, then 0.                         |
+| 5    | 3    | [T, F, T, T, T] | [0, 2, 4, 3]    | Neighbors of 0: [3,1], call DFS(3). Mark visited[3]=true, add 3.              |
+| 6    | -    | [T, F, T, T, T] | [0, 2, 4, 3]    | Neighbors of 3: [0], visited. Backtrack to 0.                                 |
+| 7    | 1    | [T, T, T, T, T] | [0, 2, 4, 3, 1] | Neighbors of 0: [1], call DFS(1). Mark visited[1]=true, add 1.                |
+| 8    | -    | [T, T, T, T, T] | [0, 2, 4, 3, 1] | Neighbors of 1: [0], visited. Backtrack, DFS complete.                        |
 
 **Hinglish Explanation**:
+
 - Step 1: 0 se shuru, visited[0]=true, result=[0].
 - Step 2: Neighbor 2 pe DFS, visited[2]=true, result=[0,2].
 - Step 3: 2 ka neighbor 4 pe DFS, visited[4]=true, result=[0,2,4].
@@ -214,18 +220,19 @@ int main() {
 - Step 7-8: 0 ka neighbor 1 pe DFS, visited[1]=true, result=[0,2,4,3,1]. Done.
 
 **Dry Run for Another Input**:
+
 - Input: `adj = [[1,2], [0,2], [0,1,3,4], [2], [2]]`
 - Output: `[0, 1, 2, 3, 4]`
 
-| Step | Node | Visited Array | Result | Action |
-|------|------|---------------|--------|--------|
-| 1    | 0    | [T, F, F, F, F] | [0]    | DFS(0), visited[0]=true, add 0. |
-| 2    | 1    | [T, T, F, F, F] | [0, 1] | Neighbors [1,2], call DFS(1). Visited[1]=true, add 1. |
-| 3    | 2    | [T, T, T, F, F] | [0, 1, 2] | Neighbors of 1: [0,2], call DFS(2). Visited[2]=true, add 2. |
-| 4    | 3    | [T, T, T, T, F] | [0, 1, 2, 3] | Neighbors of 2: [0,1,3,4], call DFS(3). Visited[3]=true, add 3. |
-| 5    | -    | [T, T, T, T, F] | [0, 1, 2, 3] | Neighbors of 3: [2], visited. Backtrack to 2. |
-| 6    | 4    | [T, T, T, T, T] | [0, 1, 2, 3, 4] | Neighbors of 2: [4], call DFS(4). Visited[4]=true, add 4. |
-| 7    | -    | [T, T, T, T, T] | [0, 1, 2, 3, 4] | Neighbors of 4: [2], visited. Backtrack, DFS complete. |
+| Step | Node | Visited Array   | Result          | Action                                                          |
+| ---- | ---- | --------------- | --------------- | --------------------------------------------------------------- |
+| 1    | 0    | [T, F, F, F, F] | [0]             | DFS(0), visited[0]=true, add 0.                                 |
+| 2    | 1    | [T, T, F, F, F] | [0, 1]          | Neighbors [1,2], call DFS(1). Visited[1]=true, add 1.           |
+| 3    | 2    | [T, T, T, F, F] | [0, 1, 2]       | Neighbors of 1: [0,2], call DFS(2). Visited[2]=true, add 2.     |
+| 4    | 3    | [T, T, T, T, F] | [0, 1, 2, 3]    | Neighbors of 2: [0,1,3,4], call DFS(3). Visited[3]=true, add 3. |
+| 5    | -    | [T, T, T, T, F] | [0, 1, 2, 3]    | Neighbors of 3: [2], visited. Backtrack to 2.                   |
+| 6    | 4    | [T, T, T, T, T] | [0, 1, 2, 3, 4] | Neighbors of 2: [4], call DFS(4). Visited[4]=true, add 4.       |
+| 7    | -    | [T, T, T, T, T] | [0, 1, 2, 3, 4] | Neighbors of 4: [2], visited. Backtrack, DFS complete.          |
 
 ---
 

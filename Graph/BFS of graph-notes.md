@@ -167,23 +167,25 @@ class Solution {
 int main() {
     // Example input: adj = [[2,3,1], [0], [0,4], [0], [2]]
     int V = 5;
-    vector<int> adj[V];
+    vector<vector<int>> adj(V);
     adj[0] = {2, 3, 1};
     adj[1] = {0};
     adj[2] = {0, 4};
     adj[3] = {0};
     adj[4] = {2};
 
-    // Get BFS traversal
-    vector<int> bfs = bfsOfGraph(V, adj);
+    Solution obj;                            // Create object of the Solution class
+    vector<int> bfsResult = obj.bfs(adj);    // Call the bfs() method
+
     cout << "BFS Traversal: ";
-    for (int node : bfs) {
+    for (int node : bfsResult) {
         cout << node << " ";
     }
     cout << endl;
 
     return 0;
-
+  }
+  
   // 🔑 Explanation of the BFS Steps
 
   // Visited Array: Prevents revisiting nodes and infinite loops.
@@ -197,7 +199,7 @@ int main() {
   // Neighbors Check: Only push neighbors that haven’t been visited yet.
 
   // Result: Stores the exact BFS traversal order.
-}
+
 ```
 
 **Improvements Suggested**:
