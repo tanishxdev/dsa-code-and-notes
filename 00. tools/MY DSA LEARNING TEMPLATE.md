@@ -1,6 +1,6 @@
 <!-- MY DSA LEARNING TEMPLATE -->
 
-# Problem: Cyclically Rotate Array by One (Left)
+# Problem: EXAMPLE
 
 GFG Link: https://www.geeksforgeeks.org/problems/cyclically-rotate-an-array-by-one2614/1  
 LeetCode (General): https://leetcode.com/problems/rotate-array/
