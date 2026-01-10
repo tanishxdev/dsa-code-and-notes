@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Goal is simple just able to write a node
 class Node
 {
 public:
