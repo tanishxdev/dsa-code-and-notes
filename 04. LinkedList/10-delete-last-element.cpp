@@ -128,3 +128,75 @@ int main()
 
     return 0;
 }
+
+/*
+DRY RUN
+
+Initial Linked List in memory:
+head → 10 → 20 → 30 → NULL
+
+--------------------------------------------------
+Call: head = deleteTail(head)
+--------------------------------------------------
+
+Inside deleteTail(head):
+
+1) head != NULL and head->next != NULL
+   So we do NOT return early.
+
+2) temp = head
+   temp → 10 → 20 → 30 → NULL
+
+3) Loop condition:
+   while (temp->next->next != NULL)
+
+   First check:
+   temp->next = 20
+   temp->next->next = 30  (not NULL)
+   So loop runs.
+
+   Move temp forward:
+   temp → 20 → 30 → NULL
+
+   Second check:
+   temp->next = 30
+   temp->next->next = NULL
+   Condition fails → exit loop.
+
+Now temp is pointing to SECOND LAST node:
+temp → 20 → 30 → NULL
+
+4) temp->next is the tail node (30)
+   delete temp->next
+   Node containing 30 is removed from heap
+
+5) temp->next = NULL
+   Now 20 becomes the new tail
+
+Linked List becomes:
+head → 10 → 20 → NULL
+
+6) return head
+
+--------------------------------------------------
+Back in main:
+--------------------------------------------------
+
+head → 10 → 20 → NULL
+
+--------------------------------------------------
+Call: traverse(head)
+--------------------------------------------------
+
+temp → 10 → 20 → NULL
+print 10
+
+temp → 20 → NULL
+print 20
+
+temp → NULL
+stop
+
+Output:
+10 20
+*/

@@ -119,3 +119,76 @@ int main()
 
     return 0;
 }
+
+/*
+DRY RUN (insert 25 before target = 30)
+
+Initial Linked List:
+head → 10 → 20 → 30 → 40 → NULL
+
+--------------------------------------------------
+Call: head = insertBeforeValue(head, 25, 30)
+--------------------------------------------------
+
+head is not NULL
+head->data = 10 ≠ 30, so no head insertion.
+
+Initialize:
+temp = head → 10 → 20 → 30 → 40 → NULL
+
+------------------------------------
+Iteration 1:
+------------------------------------
+temp → 10
+temp->next → 20
+20 ≠ 30, so move forward
+
+temp = 20
+
+------------------------------------
+Iteration 2:
+------------------------------------
+temp → 20
+temp->next → 30   (target found)
+
+Now insert before 30:
+
+Create new node:
+node = new Node(25)
+
+node → 25 → NULL
+
+Step 1:
+node->next = temp->next
+node → 25 → 30 → 40 → NULL
+
+Step 2:
+temp->next = node
+20 → 25 → 30
+
+Linked List becomes:
+head → 10 → 20 → 25 → 30 → 40 → NULL
+
+Loop breaks.
+
+--------------------------------------------------
+Back in main:
+--------------------------------------------------
+
+head → 10 → 20 → 25 → 30 → 40 → NULL
+
+--------------------------------------------------
+Call: traverse(head)
+--------------------------------------------------
+
+temp → 10 → 20 → 25 → 30 → 40 → NULL
+print 10
+print 20
+print 25
+print 30
+print 40
+stop
+
+Output:
+10 20 25 30 40
+*/

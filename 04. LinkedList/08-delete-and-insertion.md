@@ -846,6 +846,153 @@ Key idea:
 
 > To delete a node, you must have access to the **previous node**
 
+
+
+
+This “why” is not optional.
+This is the **core law** of singly linked lists.
+
+---
+
+### Why do we need the **previous node** to delete a node?
+
+Because in a **singly linked list**, every node only knows **one thing**:
+
+```
+its next node
+```
+
+It does **not** know who is pointing to it.
+
+Memory looks like this:
+
+```
+prev → temp → next
+```
+
+`temp` knows:
+
+```
+temp->next = next
+```
+
+But `temp` does NOT know:
+
+```
+who is pointing to me?
+```
+
+That pointer is stored inside `prev`.
+
+---
+
+### What actually means “delete a node” in a linked list?
+
+Deleting is **not** removing the box from memory first.
+Deleting is:
+
+```
+Cutting the chain so the list skips this node
+```
+
+So we must change:
+
+```
+prev->next
+```
+
+From:
+
+```
+prev->next = temp
+```
+
+To:
+
+```
+prev->next = temp->next
+```
+
+Only then does the list bypass `temp`.
+
+```
+Before:
+prev → temp → next
+
+After:
+prev → next
+```
+
+Now `temp` is disconnected, so it is safe to `delete temp`.
+
+---
+
+### What if you don’t have `prev`?
+
+Suppose you are standing at `temp`.
+
+You can see:
+
+```
+temp->next
+```
+
+But you cannot reach:
+
+```
+prev->next
+```
+
+You cannot rewire the list.
+
+Trying to do:
+
+```cpp
+delete temp;
+```
+
+will remove memory, but the list still has:
+
+```
+prev → (dangling pointer)
+```
+
+Now the list is **corrupted**.
+
+This is called a **dangling pointer bug**.
+
+---
+
+### Why arrays don’t have this problem
+
+Arrays use indexes:
+
+```
+arr[k-1] = arr[k+1]
+```
+
+So shifting is easy.
+
+Linked lists don’t have indexes.
+They only have **pointers**.
+
+So to remove a node, you must control the pointer that is pointing to it.
+
+That pointer is stored in **prev**.
+
+---
+
+### One-line interview truth
+
+> In a singly linked list, you cannot delete a node unless you can modify the pointer that points to it — which belongs to the previous node.
+
+That is why:
+
+```
+temp alone is not enough.
+prev is mandatory.
+```
+
 ---
 
 ### Pseudocode

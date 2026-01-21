@@ -2,7 +2,8 @@
 using namespace std;
 
 /* ------------------------------
-   1. SELECTION SORT
+   1. SELECTION SOR
+//    https://www.geeksforgeeks.org/problems/selection-sort/1
    ------------------------------
 
    INTUITION
@@ -39,14 +40,25 @@ using namespace std;
    - Not stable (swap may break equal-order)
 */
 
-void selection_sort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
+// Function to perform selection sort on the given array.
+void selectionSort(vector<int> &arr)
+{
+    int n = arr.size();
+
+    for (int i = 0; i < n - 1; i++)
+    {
         int minIndex = i;
 
-        for (int j = i + 1; j < n; j++) {
-            if (arr[j] < arr[minIndex]) minIndex = j;
+        // find index of minimum element in remaining array
+        for (int j = i + 1; j < n; j++)
+        {
+            if (arr[j] < arr[minIndex])
+            {
+                minIndex = j;
+            }
         }
 
+        // swap current element with minimum element found
         swap(arr[i], arr[minIndex]);
     }
 }
@@ -55,27 +67,26 @@ void selection_sort(int arr[], int n) {
 DRY RUN
 Array = [13, 46, 24, 52, 20, 9]
 
-i=0 → minIndex after full scan = 5  
-Swap arr[0], arr[5]  
+i=0 → minIndex after full scan = 5
+Swap arr[0], arr[5]
 → [9,46,24,52,20,13]
 
-i=1 → minIndex = 5  
+i=1 → minIndex = 5
 → [9,13,24,52,20,46]
 
-i=2 → minIndex = 4  
+i=2 → minIndex = 4
 → [9,13,20,52,24,46]
 
-i=3 → minIndex = 4  
+i=3 → minIndex = 4
 → [9,13,20,24,52,46]
 
-i=4 → minIndex = 5  
+i=4 → minIndex = 5
 → [9,13,20,24,46,52]
 */
 
-
-
 /* ------------------------------
    2. BUBBLE SORT
+// https://www.geeksforgeeks.org/problems/bubble-sort/1
    ------------------------------
 
    INTUITION
@@ -108,19 +119,38 @@ i=4 → minIndex = 5
    - Stable
 */
 
-void bubble_sort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
+void bubbleSort(vector<int> &arr)
+{
+    int n = arr.size();
+    // n = total number of elements in the array
 
+    // Outer loop controls number of passes
+    // After each pass, the largest element moves to the end
+    for (int i = 0; i < n - 1; i++)
+    {
         bool swapped = false;
+        // swapped tracks whether any swap happened in this pass
 
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
+        // Inner loop compares adjacent elements
+        // Last i elements are already sorted, so we don't touch them
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            // If current element is greater than next element
+            // swap them to move larger element towards the end
+            if (arr[j] > arr[j + 1])
+            {
                 swap(arr[j], arr[j + 1]);
+                // swap adjacent elements
+
                 swapped = true;
+                // mark that a swap has occurred
             }
         }
 
-        if (!swapped) break;
+        // If no swaps happened in the entire pass,
+        // the array is already sorted, so we stop early
+        if (!swapped)
+            break;
     }
 }
 
@@ -128,16 +158,15 @@ void bubble_sort(int arr[], int n) {
 DRY RUN
 [13, 46, 24, 52, 20, 9]
 
-Pass 1 → bubble largest (52) to end  
-Pass 2 → bubble second-largest  
-Pass 3 → continue until sorted  
+Pass 1 → bubble largest (52) to end
+Pass 2 → bubble second-largest
+Pass 3 → continue until sorted
 Final → [9,13,20,24,46,52]
 */
 
-
-
 /* ------------------------------
    3. INSERTION SORT
+// https://www.geeksforgeeks.org/problems/insertion-sort/1
    ------------------------------
 
    INTUITION
@@ -170,36 +199,49 @@ Final → [9,13,20,24,46,52]
    - Stable
 */
 
-void insertion_sort(int arr[], int n) {
-    for (int i = 1; i < n; i++) {
+// Function to perform insertion sort on the given array
+void insertionSort(vector<int> &arr)
+{
 
-        int key = arr[i];
-        int j = i - 1;
+    int n = arr.size(); // size of the array
 
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];  
+    // Start from second element because first element is already "sorted"
+    for (int i = 1; i < n; i++)
+    {
+
+        int key = arr[i]; // element to be placed at correct position
+        int j = i - 1;    // index of previous element
+
+        /*
+            Move elements of arr[0..i-1] that are greater than key
+            one position ahead to make space for key
+        */
+        while (j >= 0 && arr[j] > key)
+        {
+            arr[j + 1] = arr[j]; // shift element to the right
             j--;
         }
+
+        // Place key at its correct sorted position
         arr[j + 1] = key;
     }
 }
 
 /*
-DRY RUN  
+DRY RUN
 [13,46,24,52,20,9]
 
-Insert 46 → correct  
-Insert 24 → shift 46  
-Insert 52 → correct  
-Insert 20 → shift 52,46,24  
-Insert 9 → shift everything  
+Insert 46 → correct
+Insert 24 → shift 46
+Insert 52 → correct
+Insert 20 → shift 52,46,24
+Insert 9 → shift everything
 Final → [9,13,20,24,46,52]
 */
 
-
-
 /* ------------------------------
    4. MERGE SORT
+//    https://www.geeksforgeeks.org/problems/merge-sort/1
    ------------------------------
 
    INTUITION
@@ -240,32 +282,68 @@ Final → [9,13,20,24,46,52]
    STABILITY:
    - Stable
 */
+// Function to merge two sorted subarrays
+// arr[l..mid] and arr[mid+1..r]
+void merge(vector<int> &arr, int l, int mid, int r)
+{
 
-void merge(vector<int>& arr, int low, int mid, int high) {
-    vector<int> temp;
-    int left = low;
-    int right = mid + 1;
+    vector<int> temp;    // temporary array to store merged result
+    int left = l;        // pointer for left subarray
+    int right = mid + 1; // pointer for right subarray
 
-    while (left <= mid && right <= high) {
-        if (arr[left] <= arr[right]) temp.push_back(arr[left++]);
-        else temp.push_back(arr[right++]);
+    // Merge elements from both halves in sorted order
+    while (left <= mid && right <= r)
+    {
+        if (arr[left] <= arr[right])
+        {
+            temp.push_back(arr[left]);
+            left++;
+        }
+        else
+        {
+            temp.push_back(arr[right]);
+            right++;
+        }
     }
 
-    while (left <= mid) temp.push_back(arr[left++]);
-    while (right <= high) temp.push_back(arr[right++]);
+    // Copy remaining elements from left half (if any)
+    while (left <= mid)
+    {
+        temp.push_back(arr[left]);
+        left++;
+    }
 
-    for (int i = low; i <= high; i++)
-        arr[i] = temp[i - low];
+    // Copy remaining elements from right half (if any)
+    while (right <= r)
+    {
+        temp.push_back(arr[right]);
+        right++;
+    }
+
+    // Copy merged elements back to original array
+    for (int i = l; i <= r; i++)
+    {
+        arr[i] = temp[i - l];
+    }
 }
 
-void mergeSort(vector<int>& arr, int low, int high) {
-    if (low >= high) return;
-    int mid = (low + high) / 2;
+// Main merge sort function (matches given signature)
+void mergeSort(vector<int> &arr, int l, int r)
+{
+    // Base case: single element or invalid range
+    if (l >= r)
+        return;
 
-    mergeSort(arr, low, mid);
-    mergeSort(arr, mid + 1, high);
+    int mid = l + (r - l) / 2;
 
-    merge(arr, low, mid, high);
+    // Sort left half
+    mergeSort(arr, l, mid);
+
+    // Sort right half
+    mergeSort(arr, mid + 1, r);
+
+    // Merge the two sorted halves
+    merge(arr, l, mid, r);
 }
 
 /*
@@ -276,10 +354,9 @@ Sort right → [9,20,52]
 Merge → [9,13,20,24,46,52]
 */
 
-
-
 /* ------------------------------
    5. QUICK SORT
+// https://www.geeksforgeeks.org/problems/quick-sort/1
    ------------------------------
 
    INTUITION
@@ -321,30 +398,53 @@ Merge → [9,13,20,24,46,52]
    - Not stable
 */
 
-int partition(vector<int>& arr, int low, int high) {
-    int pivot = arr[high];
-    int i = low - 1;
+// Function to partition the array using last element as pivot
+int partition(vector<int> &arr, int low, int high)
+{
 
-    for (int j = low; j < high; j++) {
-        if (arr[j] < pivot) {
-            i++;
-            swap(arr[i], arr[j]);
+    int pivot = arr[high]; // choose last element as pivot
+    int i = low - 1;       // index of smaller element
+
+    // Traverse elements from low to high-1
+    for (int j = low; j < high; j++)
+    {
+
+        // If current element is smaller than pivot
+        if (arr[j] < pivot)
+        {
+            i++;                  // move smaller element index forward
+            swap(arr[i], arr[j]); // place element at correct position
         }
     }
+
+    // Place pivot at its correct sorted position
     swap(arr[i + 1], arr[high]);
+
+    // Return pivot index
     return i + 1;
 }
 
-void quickSort(vector<int>& arr, int low, int high) {
-    if (low < high) {
+// Function to perform Quick Sort on the array
+void quickSort(vector<int> &arr, int low, int high)
+{
+
+    // Base condition: sort only if there are at least 2 elements
+    if (low < high)
+    {
+
+        // Partition the array and get pivot index
         int p = partition(arr, low, high);
+
+        // Recursively sort elements before pivot
         quickSort(arr, low, p - 1);
+
+        // Recursively sort elements after pivot
         quickSort(arr, p + 1, high);
     }
 }
 
 /*
-DRY RUN  
+DRY RUN
 Pivot = last element
 
 Initial: [13,46,24,52,20,9]
@@ -353,49 +453,51 @@ Sort right side similarly
 Final sorted array → [9,13,20,24,46,52]
 */
 
-
-
 /* ------------------------------
    MAIN DRIVER FUNCTION
    ------------------------------
 */
+int main()
+{
+    vector<int> original = {13, 46, 24, 52, 20, 9};
 
-int main() {
-    int arr1[] = {13, 46, 24, 52, 20, 9};
-    int n = sizeof(arr1) / sizeof(arr1[0]);
+    // Helper lambda to print array
+    auto printArray = [](const vector<int> &arr)
+    {
+        for (int x : arr)
+            cout << x << " ";
+        cout << endl;
+    };
 
-    cout << "Before Sorting: ";
-    for (int x : arr1) cout << x << " ";
-    cout << "\n\n";
+    // 1. Selection Sort
+    vector<int> arr1 = original;
+    selectionSort(arr1);
+    cout << "Selection Sort: ";
+    printArray(arr1);
 
-    selection_sort(arr1, n);
-    cout << "After Selection Sort: ";
-    for (int x : arr1) cout << x << " ";
-    cout << "\n\n";
+    // 2. Bubble Sort
+    vector<int> arr2 = original;
+    bubbleSort(arr2);
+    cout << "Bubble Sort:    ";
+    printArray(arr2);
 
-    int arr2[] = {13, 46, 24, 52, 20, 9};
-    bubble_sort(arr2, n);
-    cout << "After Bubble Sort: ";
-    for (int x : arr2) cout << x << " ";
-    cout << "\n\n";
+    // 3. Insertion Sort
+    vector<int> arr3 = original;
+    insertionSort(arr3);
+    cout << "Insertion Sort: ";
+    printArray(arr3);
 
-    int arr3[] = {13, 46, 24, 52, 20, 9};
-    insertion_sort(arr3, n);
-    cout << "After Insertion Sort: ";
-    for (int x : arr3) cout << x << " ";
-    cout << "\n\n";
+    // 4. Merge Sort
+    vector<int> arr4 = original;
+    mergeSort(arr4, 0, arr4.size() - 1);
+    cout << "Merge Sort:     ";
+    printArray(arr4);
 
-    vector<int> arr4 = {13, 46, 24, 52, 20, 9};
-    mergeSort(arr4, 0, n - 1);
-    cout << "After Merge Sort: ";
-    for (int x : arr4) cout << x << " ";
-    cout << "\n\n";
-
-    vector<int> arr5 = {13, 46, 24, 52, 20, 9};
-    quickSort(arr5, 0, n - 1);
-    cout << "After Quick Sort: ";
-    for (int x : arr5) cout << x << " ";
-    cout << "\n";
+    // 5. Quick Sort
+    vector<int> arr5 = original;
+    quickSort(arr5, 0, arr5.size() - 1);
+    cout << "Quick Sort:     ";
+    printArray(arr5);
 
     return 0;
 }

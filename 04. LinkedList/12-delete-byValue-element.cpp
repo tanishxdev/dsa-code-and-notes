@@ -90,3 +90,75 @@ int main()
 
     return 0;
 }
+/*
+DRY RUN (value = 20)
+
+Initial Linked List:
+head → 10 → 20 → 30 → 20 → 40 → NULL
+
+--------------------------------------------------
+Call: head = deleteByValue(head, 20)
+--------------------------------------------------
+
+Inside deleteByValue(head, value):
+
+1) head is NOT NULL.
+2) head->data = 10, which is NOT equal to 20.
+   So we do not delete the head.
+
+Initialize:
+temp = head → 10 → 20 → 30 → 20 → 40 → NULL
+prev = NULL
+
+------------------------------------
+Iteration 1:
+------------------------------------
+temp → 10
+10 != 20
+
+Move pointers:
+prev = 10
+temp = 20
+
+------------------------------------
+Iteration 2:
+------------------------------------
+temp → 20   (target found)
+
+prev → 10
+temp → 20
+temp->next → 30
+
+Execute:
+prev->next = temp->next
+So:
+10 → 30
+
+delete temp
+Node containing first 20 is removed from memory.
+
+Linked List becomes:
+head → 10 → 30 → 20 → 40 → NULL
+
+Loop breaks (only first occurrence is deleted).
+
+--------------------------------------------------
+Back in main:
+--------------------------------------------------
+
+head → 10 → 30 → 20 → 40 → NULL
+
+--------------------------------------------------
+Call: traverse(head)
+--------------------------------------------------
+
+temp → 10 → 30 → 20 → 40 → NULL
+print 10
+print 30
+print 20
+print 40
+stop
+
+Output:
+10 30 20 40
+*/

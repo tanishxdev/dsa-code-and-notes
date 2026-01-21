@@ -141,3 +141,56 @@ int main()
 
     return 0;
 }
+
+/*
+DRY RUN
+
+Initial Linked List in memory:
+head → 10 → 20 → 30 → NULL
+
+--------------------------------------------------
+Call: head = deleteHead(head)
+--------------------------------------------------
+
+Inside deleteHead(head):
+
+1) head is NOT null, so we continue.
+
+2) temp = head
+   temp → 10 → 20 → 30 → NULL
+
+3) head = head->next
+   head → 20 → 30 → NULL
+   temp → 10 → 20 → 30 → NULL
+
+4) delete temp
+   Node containing 10 is removed from heap
+
+Remaining list in memory:
+head → 20 → 30 → NULL
+
+5) return head
+
+--------------------------------------------------
+Back in main:
+--------------------------------------------------
+
+head now points to:
+20 → 30 → NULL
+
+--------------------------------------------------
+Call: traverse(head)
+--------------------------------------------------
+
+temp → 20 → 30 → NULL
+print 20
+
+temp → 30 → NULL
+print 30
+
+temp → NULL
+stop
+
+Output:
+20 30
+*/

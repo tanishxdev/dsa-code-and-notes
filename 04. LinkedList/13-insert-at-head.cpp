@@ -76,3 +76,49 @@ int main()
 
     return 0;
 }
+
+/*
+DRY RUN (insertHead with value = 5)
+
+Initial Linked List:
+head → 10 → 20 → 30 → NULL
+
+--------------------------------------------------
+Call: head = insertHead(head, 5)
+--------------------------------------------------
+
+Inside insertHead(head, value):
+
+1) Create new node:
+temp = new Node(5)
+
+Heap now has:
+temp → 5 → NULL
+
+2) temp->next = head
+So:
+temp → 5 → 10 → 20 → 30 → NULL
+
+3) return temp
+
+--------------------------------------------------
+Back in main:
+--------------------------------------------------
+
+head now points to:
+5 → 10 → 20 → 30 → NULL
+
+--------------------------------------------------
+Call: traverse(head)
+--------------------------------------------------
+
+temp → 5 → 10 → 20 → 30 → NULL
+print 5
+print 10
+print 20
+print 30
+stop
+
+Output:
+5 10 20 30
+*/

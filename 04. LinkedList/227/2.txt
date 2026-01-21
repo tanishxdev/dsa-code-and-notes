@@ -1,0 +1,437 @@
+Perfect.
+Now we start **only this one problem**.
+
+---
+
+# LINKED LIST — REVERSE A LINKED LIST (LC 206)
+
+---
+
+## What We Are Solving
+
+You are given the **head** of a singly linked list.
+
+You must **reverse the list** and return the **new head**.
+
+### Example
+
+Before:
+
+```
+head → 1 → 2 → 3 → 4 → 5 → null
+```
+
+After:
+
+```
+head → 5 → 4 → 3 → 2 → 1 → null
+```
+
+---
+
+## Why This Problem Exists
+
+This is not about values.
+
+It tests whether you truly understand:
+
+> **Who points to whom in memory**
+
+Most people think:
+
+> “Just reverse it”
+
+But in memory:
+
+* Every node has **only one arrow**
+* Once you break an arrow, you **lose nodes forever**
+
+So reversing is actually:
+
+> **Rebuilding every pointer without losing any node**
+
+---
+
+## Core Mindset
+
+> Linked List problems are not data problems — they are **arrow (pointer) problems**.
+
+Reversal means:
+
+```
+A → B   becomes   A ← B
+```
+
+But singly linked list has no backward pointer.
+
+So we must **manually rewire every arrow**.
+
+---
+
+# Two Ways to Reverse
+
+1. **Iterative (3 pointer method)**
+2. **Recursive (rewind & fix)**
+
+We will do **both**.
+
+---
+
+# PART A — ITERATIVE REVERSAL (Most Interviewed)
+
+---
+
+## Intuition (How to Think)
+
+We walk through the list and **reverse arrows one by one**.
+
+We need 3 pointers:
+
+```
+prev  curr  next
+```
+
+At any time:
+
+```
+prev ← curr → next
+```
+
+We will do:
+
+```
+curr.next = prev
+```
+
+Then move forward.
+
+---
+
+## Visual
+
+Initial:
+
+```
+null ← 1 → 2 → 3 → 4 → 5 → null
+ prev   curr  next
+```
+
+After one step:
+
+```
+null ← 1   2 → 3 → 4 → 5
+       prev curr
+```
+
+We keep repeating until `curr == null`.
+
+---
+
+## Pseudocode
+
+```
+REVERSE(head):
+
+    prev ← null
+    curr ← head
+
+    WHILE curr != null:
+        next ← curr.next
+        curr.next ← prev
+        prev ← curr
+        curr ← next
+
+    RETURN prev
+```
+
+---
+
+## C++ Code
+
+### Version 1 — Clean
+
+```cpp
+Node* reverseList(Node* head) {
+    Node* prev = nullptr;
+    Node* curr = head;
+
+    while (curr != nullptr) {
+        Node* next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    return prev;
+}
+```
+
+---
+
+### Version 2 — Full Program with Deep Comments
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int val) {
+        data = val;
+        next = nullptr;
+    }
+};
+
+Node* reverseList(Node* head) {
+
+    // prev will become the new next of current
+    Node* prev = nullptr;
+
+    // curr is used to traverse the list
+    Node* curr = head;
+
+    while (curr != nullptr) {
+
+        // Step 1: Save next node
+        Node* next = curr->next;
+
+        // Step 2: Reverse the arrow
+        curr->next = prev;
+
+        // Step 3: Move prev forward
+        prev = curr;
+
+        // Step 4: Move curr forward
+        curr = next;
+    }
+
+    // prev becomes new head
+    return prev;
+}
+
+void traverse(Node* head) {
+    while (head != nullptr) {
+        cout << head->data << " ";
+        head = head->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    Node* head = new Node(1);
+    head->next = new Node(2);
+    head->next->next = new Node(3);
+
+    head = reverseList(head);
+
+    traverse(head);
+}
+```
+
+---
+
+## Dry Run (Iterative)
+
+Input:
+
+```
+1 → 2 → 3 → null
+```
+
+| Step | prev | curr | next | Action |
+| ---- | ---- | ---- | ---- | ------ |
+| 1    | null | 1    | 2    | 1→null |
+| 2    | 1    | 2    | 3    | 2→1    |
+| 3    | 2    | 3    | null | 3→2    |
+
+End:
+
+```
+3 → 2 → 1 → null
+```
+
+---
+
+# PART B — RECURSIVE REVERSAL (Your Video Logic)
+
+---
+
+## Mental Model
+
+Recursion does two things:
+
+1. Goes to the **last node**
+2. While coming back, **reverses links**
+
+Last node becomes the **new head**.
+
+---
+
+## Base Case
+
+If list is:
+
+```
+null
+```
+
+or
+
+```
+1 → null
+```
+
+No reversal needed.
+
+Return head.
+
+---
+
+## Core Logic
+
+If I am at:
+
+```
+1 → 2 → 3 → 4 → null
+```
+
+I say:
+
+> “2, you reverse everything after you and give me the last node.”
+
+When it returns, I do:
+
+```
+2.next = 1
+1.next = null
+```
+
+---
+
+## Pseudocode
+
+```
+REVERSE(head):
+
+    IF head == null OR head.next == null:
+        RETURN head
+
+    newHead = REVERSE(head.next)
+
+    head.next.next = head
+    head.next = null
+
+    RETURN newHead
+```
+
+---
+
+## C++ Code
+
+### Version 1 — Clean
+
+```cpp
+Node* reverseList(Node* head) {
+    if (head == nullptr || head->next == nullptr)
+        return head;
+
+    Node* newHead = reverseList(head->next);
+
+    head->next->next = head;
+    head->next = nullptr;
+
+    return newHead;
+}
+```
+
+---
+
+### Version 2 — Full Program
+
+```cpp
+Node* reverseList(Node* head) {
+
+    // Base case
+    if (head == nullptr || head->next == nullptr) {
+        return head;
+    }
+
+    // Reverse remaining list
+    Node* newHead = reverseList(head->next);
+
+    // Fix current node
+    head->next->next = head;
+    head->next = nullptr;
+
+    return newHead;
+}
+```
+
+---
+
+## Dry Run (Recursive)
+
+```
+1 → 2 → 3 → null
+```
+
+Call stack:
+
+```
+reverse(1)
+ reverse(2)
+  reverse(3) → returns 3
+```
+
+Now rewind:
+
+At 2:
+
+```
+3 → 2
+2.next = null
+```
+
+At 1:
+
+```
+2 → 1
+1.next = null
+```
+
+Final:
+
+```
+3 → 2 → 1
+```
+
+---
+
+## Time & Space
+
+| Method    | Time | Space        |
+| --------- | ---- | ------------ |
+| Iterative | O(n) | O(1)         |
+| Recursive | O(n) | O(n) (stack) |
+
+---
+
+## Interview Traps
+
+1. Forgetting `head->next = null`
+2. Losing nodes by wrong pointer order
+3. Not updating head
+
+---
+
+## One-line Interview Truth
+
+> Reversal is not about swapping values — it is about **reversing arrows without losing any node**.
+
+---
+
+Do you confirm this format and explanation?
+If yes, tell me the **next Linked List problem**.

@@ -179,3 +179,76 @@ int main()
 
     return 0;
 }
+
+/*
+DRY RUN (insertAtK with value = 25, K = 3)
+
+Initial Linked List:
+head → 10 → 20 → 30 → NULL
+
+--------------------------------------------------
+Call: head = insertAtK(head, 25, 3)
+--------------------------------------------------
+
+K != 1, so we do NOT insert at head.
+
+Initialize:
+temp = head → 10 → 20 → 30 → NULL
+count = 1
+
+------------------------------------
+Iteration 1:
+------------------------------------
+count = 1
+temp → 10
+count != K-1 (2), so move forward
+
+temp = 20
+count = 2
+
+------------------------------------
+Iteration 2:
+------------------------------------
+count = 2   (this is K-1 position)
+temp → 20
+
+Now perform insertion:
+
+Create new node:
+node = new Node(25)
+
+node → 25 → NULL
+
+Step 1:
+node->next = temp->next
+node → 25 → 30 → NULL
+
+Step 2:
+temp->next = node
+20 → 25 → 30
+
+Linked List becomes:
+head → 10 → 20 → 25 → 30 → NULL
+
+Break loop.
+
+--------------------------------------------------
+Back in main:
+--------------------------------------------------
+
+head → 10 → 20 → 25 → 30 → NULL
+
+--------------------------------------------------
+Call: traverse(head)
+--------------------------------------------------
+
+temp → 10 → 20 → 25 → 30 → NULL
+print 10
+print 20
+print 25
+print 30
+stop
+
+Output:
+10 20 25 30
+*/

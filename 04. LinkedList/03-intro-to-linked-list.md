@@ -1,4 +1,4 @@
-# INTRO TO LINKED LIST 
+# INTRO TO LINKED LIST
 
 ### What We Covered Here
 
@@ -34,13 +34,13 @@ Array = [1, 3, 2, 5]  // size = 4
 
 If later we want to add `8`, we **cannot**:
 
-* The size is fixed
-* Memory after the array may already be occupied
+- The size is fixed
+- Memory after the array may already be occupied
 
 ### Memory Reality of Arrays
 
-* Arrays are stored in **contiguous memory**
-* Example (conceptual):
+- Arrays are stored in **contiguous memory**
+- Example (conceptual):
 
 ```text
 Index:   0     1     2     3
@@ -50,19 +50,20 @@ Address: 100   104   108   112
 
 This makes:
 
-* Index-based access easy
-* Resizing difficult or impossible
+- Index-based access easy
+- Resizing difficult or impossible
 
 ---
+
 ## 2. What Is a Linked List (High-Level Idea)
 
 A **Linked List** is a **linear data structure** where:
 
-* Elements (**nodes**) are **not stored contiguously** in memory
-* Each node stores:
+- Elements (**nodes**) are **not stored contiguously** in memory
+- Each node stores:
 
-  * **data** (actual value)
-  * **link(s)** (pointer/reference to other node(s))
+  - **data** (actual value)
+  - **link(s)** (pointer/reference to other node(s))
 
 Because nodes are connected using links instead of memory position, the list can **grow or shrink dynamically** without reallocation.
 
@@ -70,17 +71,18 @@ Because nodes are connected using links instead of memory position, the list can
 
 ### Core Characteristics (Why Linked List Is Different from Array)
 
-* ❌ No contiguous memory requirement
-* ✅ Dynamic size (insert/delete anytime)
-* ❌ No direct index-based access
-* ✅ Sequential access via traversal
-* ✅ Efficient insert/delete (no shifting like arrays)
+- ❌ No contiguous memory requirement
+- ✅ Dynamic size (insert/delete anytime)
+- ❌ No direct index-based access
+- ✅ Sequential access via traversal
+- ✅ Efficient insert/delete (no shifting like arrays)
 
 ---
 
 ### Core Terminology (Must Be Clear)
 
 ![](https://cdn-images-1.medium.com/max/2560/1*GOKmkucFHN_gmTMUtyC2sQ.png)
+
 #### Node
 
 A **node** is the fundamental unit of a linked list.
@@ -89,37 +91,37 @@ A **node** is the fundamental unit of a linked list.
 [data | link(s)]
 ```
 
-* `data` → value stored
-* `link(s)` → address/reference of other node(s)
+- `data` → value stored
+- `link(s)` → address/reference of other node(s)
 
 ---
 
 #### Head
 
-* Reference to the **first node**
-* Entry point of the linked list
-* Losing `head` = losing the entire list
+- Reference to the **first node**
+- Entry point of the linked list
+- Losing `head` = losing the entire list
 
 ---
 
 #### Tail
 
-* The **last node** of the list
-* Its link points to:
+- The **last node** of the list
+- Its link points to:
 
-  * `null` → singly / doubly linked list
-  * `head` → circular linked list
+  - `null` → singly / doubly linked list
+  - `head` → circular linked list
 
 ---
 
 #### Traversal
 
-* Process of visiting nodes **one by one**
-* Always starts from `head`
-* Stops when:
+- Process of visiting nodes **one by one**
+- Always starts from `head`
+- Stops when:
 
-  * `null` is reached (SLL / DLL)
-  * `head` is reached again (CLL)
+  - `null` is reached (SLL / DLL)
+  - `head` is reached again (CLL)
 
 ---
 
@@ -127,9 +129,9 @@ A **node** is the fundamental unit of a linked list.
 
 Different problems need different navigation and deletion behavior:
 
-* Only forward movement → **Singly Linked List**
-* Forward + backward movement → **Doubly Linked List**
-* Continuous looping → **Circular Linked List**
+- Only forward movement → **Singly Linked List**
+- Forward + backward movement → **Doubly Linked List**
+- Continuous looping → **Circular Linked List**
 
 So linked lists are classified based on **how nodes are connected**.
 
@@ -141,11 +143,12 @@ So linked lists are classified based on **how nodes are connected**.
 
 #### Type 1: Singly Linked List (SLL)
 
-* Each node has:
+- Each node has:
 
-  * `data`
-  * `next`
-* Traversal only in **one direction**
+  - `data`
+  - `next`
+
+- Traversal only in **one direction**
 
 ```
 head → [5] → [10] → [15] → [20] → null
@@ -153,20 +156,21 @@ head → [5] → [10] → [15] → [20] → null
 
 Key points:
 
-* Memory efficient
-* Cannot move backward
-* Previous node needed for deletion
+- Memory efficient
+- Cannot move backward
+- Previous node needed for deletion
 
 ---
 
 #### Type 2: Doubly Linked List (DLL)
 
-* Each node has:
+- Each node has:
 
-  * `back`
-  * `data`
-  * `next`
-* Traversal in **both directions**
+  - `back`
+  - `data`
+  - `next`
+
+- Traversal in **both directions**
 
 ```
 null ← [5] ⇄ [10] ⇄ [15] ⇄ [20] → null
@@ -174,16 +178,16 @@ null ← [5] ⇄ [10] ⇄ [15] ⇄ [20] → null
 
 Key points:
 
-* Easier deletion
-* Extra memory for `back` pointer
-* More pointer handling
+- Easier deletion
+- Extra memory for `back` pointer
+- More pointer handling
 
 ---
 
 #### Type 3: Circular Linked List (CLL)
 
-* Last node points back to **head**
-* No `null` at the end
+- Last node points back to **head**
+- No `null` at the end
 
 ```
 head → [5] → [10] → [15] → [20]
@@ -192,9 +196,9 @@ head → [5] → [10] → [15] → [20]
 
 Key points:
 
-* Continuous traversal
-* Careful stopping condition required
-* Useful for cyclic processes
+- Continuous traversal
+- Careful stopping condition required
+- Useful for cyclic processes
 
 ---
 
@@ -203,21 +207,20 @@ Key points:
 | Feature            | Singly | Doubly | Circular |
 | ------------------ | ------ | ------ | -------- |
 | Forward traversal  | Yes    | Yes    | Yes      |
-| Backward traversal | No     | Yes    | Yes*     |
+| Backward traversal | No     | Yes    | Yes\*    |
 | Extra memory       | Low    | High   | Medium   |
 | End marker         | null   | null   | head     |
 | Complexity         | Simple | Medium | Tricky   |
 
-* backward only if doubly circular
+- backward only if doubly circular
 
-![](https://miro.medium.com/v2/resize:fit:1400/1*YaVBXzzBuMIHYaEczAcAig.png)
----
+## ![](https://miro.medium.com/v2/resize:fit:1400/1*YaVBXzzBuMIHYaEczAcAig.png)
 
 ### Mental Model (Interview Ready)
 
-* **SLL** → simple, memory-efficient, forward only
-* **DLL** → flexible, easy deletion, extra memory
-* **CLL** → looping structure, careful traversal
+- **SLL** → simple, memory-efficient, forward only
+- **DLL** → flexible, easy deletion, extra memory
+- **CLL** → looping structure, careful traversal
 
 ---
 
@@ -288,9 +291,9 @@ public:
 
 Why each part exists:
 
-* `data`: actual value
-* `next`: remembers where the next node lives
-* `nullptr`: marks end of list
+- `data`: actual value
+- `next`: remembers where the next node lives
+- `nullptr`: marks end of list
 
 ---
 
@@ -298,29 +301,177 @@ Why each part exists:
 
 ```javascript
 class Node {
-    constructor(value) {
-        this.data = value;   // stores value
-        this.next = null;    // reference to next node
-    }
+  constructor(value) {
+    this.data = value; // stores value
+    this.next = null; // reference to next node
+  }
 }
 ```
 
 Key difference:
 
-* No pointers in JS
-* References behave like pointers conceptually
+- No pointers in JS
+- References behave like pointers conceptually
 
 ---
 
 ## 6. Head and Tail (Very Important)
 
-* **Head**: pointer/reference to first node
-* **Tail**: last node whose `next == null`
+- **Head**: pointer/reference to first node
+- **Tail**: last node whose `next == null`
 
 Rule:
 
 > Never lose the head.
 > If you lose the head, the list is lost.
+
+Because in a Linked List, **the head is the only entry point to the entire structure**.
+
+Let’s break this down very carefully.
+
+---
+
+### What a Linked List really is
+
+A linked list in memory is **not one block**.
+
+It is many scattered nodes like:
+
+```
+[10]    [20]    [30]    [40]
+```
+
+These nodes are **not stored next to each other**.
+
+The only thing that connects them is:
+
+```
+10.next → 20
+20.next → 30
+30.next → 40
+40.next → null
+```
+
+Now ask one question:
+
+> From where do you start reading this chain?
+
+Answer: **Head**.
+
+```
+head → 10 → 20 → 30 → 40 → null
+```
+
+Head is the **only address** you know.
+
+---
+
+### What happens if head is lost?
+
+Imagine this:
+
+```
+head → 10 → 20 → 30 → 40 → null
+```
+
+Now by mistake:
+
+```
+head = head->next
+```
+
+without saving the old head.
+
+You just did:
+
+```
+head → 20 → 30 → 40 → null
+```
+
+Where is `10` now?
+
+Its address was only stored in `head`.
+
+Now no variable in your program points to `10`.
+
+So in memory:
+
+```
+[10]   [20] → [30] → [40]
+  X
+(no pointer to 10)
+```
+
+Node `10` still exists in RAM, but:
+
+- You cannot reach it
+- You cannot delete it
+- You cannot traverse from it
+- You cannot free it
+
+This is called a **memory leak** in C++
+and **lost data** in theory.
+
+That node is now **garbage**.
+
+---
+
+### Why tail is also important
+
+Tail is:
+
+```
+the last node where next == null
+```
+
+Tail allows:
+
+- O(1) insertion at end
+- Quick access to last element
+- Efficient queue, deque, LRU cache
+
+Without tail:
+
+- You must scan from head every time to find last node (O(n))
+
+So:
+
+- Head = entry gate
+- Tail = exit gate
+
+Lose either → performance or correctness breaks.
+
+---
+
+### Real world analogy
+
+Think of a train:
+
+```
+Engine → Coach → Coach → Coach → Last
+```
+
+You only know where the train starts (engine).
+
+If you lose the engine:
+
+- You cannot reach any coach
+- Even though all coaches still exist
+
+Linked List is the same.
+
+**Head is the engine.**
+
+---
+
+### Interview one-liner
+
+> Head is the only pointer that gives access to the entire linked list.
+> If head is lost, all nodes become unreachable and the list is effectively destroyed.
+
+That is why:
+
+> **Never lose the head.**
 
 ---
 
@@ -334,9 +485,9 @@ Given an array, convert it into a singly linked list and return the **head**.
 
 ### Intuition
 
-* First element becomes the head
-* Use a moving pointer (`mover`) to attach new nodes
-* Always append at the end
+- First element becomes the head
+- Use a moving pointer (`mover`) to attach new nodes
+- Always append at the end
 
 ---
 
@@ -361,6 +512,7 @@ Final structure:
 ```text
 head -> 2 -> 1 -> 3 -> 8 -> null
 ```
+
 ### PSEUDOCODE FILE : Array to Linked List
 
 ```
@@ -451,8 +603,6 @@ head -> 2 -> 1 -> 3 -> 8 -> null
 
 ```
 
-
-
 ---
 
 ### C++ Code (Array → Linked List)
@@ -484,22 +634,22 @@ Node* convertArrayToLL(vector<int>& arr) {
 
 ```javascript
 function convertArrayToLL(arr) {
-    if (arr.length === 0) return null;
+  if (arr.length === 0) return null;
 
-    // Step 1: Create head
-    let head = new Node(arr[0]);
+  // Step 1: Create head
+  let head = new Node(arr[0]);
 
-    // Step 2: Mover pointer
-    let mover = head;
+  // Step 2: Mover pointer
+  let mover = head;
 
-    // Step 3: Create remaining nodes
-    for (let i = 1; i < arr.length; i++) {
-        let temp = new Node(arr[i]);
-        mover.next = temp;
-        mover = temp;
-    }
+  // Step 3: Create remaining nodes
+  for (let i = 1; i < arr.length; i++) {
+    let temp = new Node(arr[i]);
+    mover.next = temp;
+    mover = temp;
+  }
 
-    return head;
+  return head;
 }
 ```
 
@@ -507,10 +657,11 @@ function convertArrayToLL(arr) {
 
 ### Time & Space Complexity
 
-* Time: **O(n)**
-* Space: **O(n)** (new nodes)
+- Time: **O(n)**
+- Space: **O(n)** (new nodes)
 
 ---
+
 ## 8. Traversal of a Linked List (Most Important Skill)
 
 ---
@@ -522,14 +673,14 @@ function convertArrayToLL(arr) {
 
 **Reason (Why this rule exists):**
 
-* `head` stores the starting address of the linked list.
-* If you move `head`, you **lose access** to the list.
-* Many operations (insert, delete, print) still need `head` later.
+- `head` stores the starting address of the linked list.
+- If you move `head`, you **lose access** to the list.
+- Many operations (insert, delete, print) still need `head` later.
 
 So:
 
-* `head` → permanent reference
-* `temp` → moving pointer for traversal
+- `head` → permanent reference
+- `temp` → moving pointer for traversal
 
 ---
 
@@ -538,13 +689,13 @@ So:
 1. Take a temporary pointer temp and assign it head
 2. Check: is temp pointing to a valid node?
 3. If yes:
-    * Print temp->data
-    * Move temp to temp->next
+   - Print temp->data
+   - Move temp to temp->next
 4. Repeat until temp becomes null
 5. Stop traversal
-Why stop at null?
-    * null means no node exists after this
-    * End of linked list
+   Why stop at null?
+   _ null means no node exists after this
+   _ End of linked list
 
 ---
 
@@ -655,17 +806,16 @@ Linked List:
 
 ---
 
-
 ### JavaScript Traversal Code
 
 ```javascript
 function traverse(head) {
-    let temp = head;
+  let temp = head;
 
-    while (temp !== null) {
-        console.log(temp.data);
-        temp = temp.next;
-    }
+  while (temp !== null) {
+    console.log(temp.data);
+    temp = temp.next;
+  }
 }
 ```
 
@@ -674,26 +824,25 @@ function traverse(head) {
 ```javascript
 // Node structure
 class Node {
-    constructor(data) {
-        this.data = data;   // stores value
-        this.next = null;   // points to next node
-    }
+  constructor(data) {
+    this.data = data; // stores value
+    this.next = null; // points to next node
+  }
 }
 
 // Traversal function
 function traverse(head) {
-    // temp pointer to protect head
-    let temp = head;
+  // temp pointer to protect head
+  let temp = head;
 
-    // Traverse until end of list
-    while (temp !== null) {
+  // Traverse until end of list
+  while (temp !== null) {
+    // Print current node data
+    console.log(temp.data);
 
-        // Print current node data
-        console.log(temp.data);
-
-        // Move to next node
-        temp = temp.next;
-    }
+    // Move to next node
+    temp = temp.next;
+  }
 }
 
 // Main execution
@@ -729,8 +878,8 @@ Printed sequence:
 
 #### Time Complexity (TC)
 
-* Each node is visited **exactly once**
-* If there are `n` nodes:
+- Each node is visited **exactly once**
+- If there are `n` nodes:
 
 ```
 Time Complexity = O(n)
@@ -738,8 +887,8 @@ Time Complexity = O(n)
 
 #### Space Complexity (SC)
 
-* Only **one extra pointer (`temp`)** is used
-* No extra data structures
+- Only **one extra pointer (`temp`)** is used
+- No extra data structures
 
 ```
 Space Complexity = O(1)
@@ -760,6 +909,7 @@ Space Complexity = O(1)
 
 > Traversal is the **base skill** of Linked List.
 > If traversal is weak → insert, delete, search will all break.
+
 ---
 
 ## 9. Length of a Linked List
@@ -781,9 +931,9 @@ We walk through the linked list **once** and count how many nodes we visit.
 
 **Why:**
 
-* `head` is the only entry point to the linked list.
-* If you change it, the list reference is lost.
-* Length calculation is a **read-only** operation → no reason to touch `head`.
+- `head` is the only entry point to the linked list.
+- If you change it, the list reference is lost.
+- Length calculation is a **read-only** operation → no reason to touch `head`.
 
 ---
 
@@ -793,8 +943,9 @@ We walk through the linked list **once** and count how many nodes we visit.
 2. Maintain a counter `count`
 3. For every node visited:
 
-   * Increase `count`
-   * Move to next node
+   - Increase `count`
+   - Move to next node
+
 4. Stop when pointer becomes `null`
 5. Return `count`
 
@@ -933,15 +1084,15 @@ Length of Linked List: 4
 
 ```javascript
 function lengthOfLL(head) {
-    let count = 0;
-    let temp = head;
+  let count = 0;
+  let temp = head;
 
-    while (temp !== null) {
-        count++;
-        temp = temp.next;
-    }
+  while (temp !== null) {
+    count++;
+    temp = temp.next;
+  }
 
-    return count;
+  return count;
 }
 ```
 
@@ -952,33 +1103,31 @@ function lengthOfLL(head) {
 ```javascript
 // Node structure
 class Node {
-    constructor(data) {
-        this.data = data;   // value of node
-        this.next = null;   // reference to next node
-    }
+  constructor(data) {
+    this.data = data; // value of node
+    this.next = null; // reference to next node
+  }
 }
 
 // Function to calculate length of linked list
 function lengthOfLL(head) {
+  // Counter to track number of nodes
+  let count = 0;
 
-    // Counter to track number of nodes
-    let count = 0;
+  // Temporary pointer for traversal
+  let temp = head;
 
-    // Temporary pointer for traversal
-    let temp = head;
+  // Traverse the entire list
+  while (temp !== null) {
+    // One node counted
+    count++;
 
-    // Traverse the entire list
-    while (temp !== null) {
+    // Move to next node
+    temp = temp.next;
+  }
 
-        // One node counted
-        count++;
-
-        // Move to next node
-        temp = temp.next;
-    }
-
-    // Return final count
-    return count;
+  // Return final count
+  return count;
 }
 
 // Main execution
@@ -1020,17 +1169,17 @@ Length of Linked List: 3
 
 **Why O(n):**
 
-* The loop runs **once for each node**
-* If the list has `n` nodes, the `while` loop executes exactly `n` times
-* Each iteration does **constant work**:
+- The loop runs **once for each node**
+- If the list has `n` nodes, the `while` loop executes exactly `n` times
+- Each iteration does **constant work**:
 
-  * increment counter
-  * move pointer
+  - increment counter
+  - move pointer
 
 There is **no way** to know the length of a singly linked list without visiting nodes, because:
 
-* Nodes are not stored contiguously (unlike arrays)
-* There is no built-in size property
+- Nodes are not stored contiguously (unlike arrays)
+- There is no built-in size property
 
 So the minimum required work is visiting all nodes → **O(n)**.
 
@@ -1040,18 +1189,19 @@ So the minimum required work is visiting all nodes → **O(n)**.
 
 **Why O(1):**
 
-* Only two extra variables are used:
+- Only two extra variables are used:
 
-  * `count`
-  * `temp`
-* Their size does **not depend on number of nodes**
-* No recursion
-* No extra data structures (array, stack, map)
+  - `count`
+  - `temp`
+
+- Their size does **not depend on number of nodes**
+- No recursion
+- No extra data structures (array, stack, map)
 
 **Important clarification:**
 
-* Memory used by the linked list itself is **not counted**
-* Space complexity measures **extra memory**, not input size
+- Memory used by the linked list itself is **not counted**
+- Space complexity measures **extra memory**, not input size
 
 Hence, constant extra space → **O(1)**.
 
@@ -1061,10 +1211,11 @@ Hence, constant extra space → **O(1)**.
 
 > Length calculation is the **foundation** for:
 
-* Finding middle node
-* Checking even / odd length
-* K-th node problems
-* Validating positions for insert/delete
+- Finding middle node
+- Checking even / odd length
+- K-th node problems
+- Validating positions for insert/delete
+
 ---
 
 ## 10. Searching in a Linked List
@@ -1077,8 +1228,8 @@ Check whether a given **target value** exists in a linked list.
 
 Return:
 
-* `true` → if value is found
-* `false` → if value is not found
+- `true` → if value is found
+- `false` → if value is not found
 
 ---
 
@@ -1089,22 +1240,22 @@ Return:
 
 **Why this rule matters here:**
 
-* Search is a **read-only** operation
-* Moving `head` will destroy access to the list
-* We may need `head` again after search (insert, delete, print)
+- Search is a **read-only** operation
+- Moving `head` will destroy access to the list
+- We may need `head` again after search (insert, delete, print)
 
 So:
 
-* `head` → fixed reference
-* `temp` → moving pointer
+- `head` → fixed reference
+- `temp` → moving pointer
 
 ---
 
 ### Intuition (How to Think)
 
-* Linked list has **no index**
-* You **cannot jump** to any position
-* Only option → start from beginning and move step-by-step
+- Linked list has **no index**
+- You **cannot jump** to any position
+- Only option → start from beginning and move step-by-step
 
 So we:
 
@@ -1120,8 +1271,9 @@ So we:
 1. Assign `temp = head`
 2. While `temp` is not `null`
 
-   * If `temp->data == target` → return `true`
-   * Else move to next node
+   - If `temp->data == target` → return `true`
+   - Else move to next node
+
 3. If loop finishes → return `false`
 
 ---
@@ -1261,15 +1413,14 @@ Value found in linked list
 
 ```javascript
 function search(head, target) {
-    let temp = head;
+  let temp = head;
 
-    while (temp !== null) {
-        if (temp.data === target)
-            return true;
-        temp = temp.next;
-    }
+  while (temp !== null) {
+    if (temp.data === target) return true;
+    temp = temp.next;
+  }
 
-    return false;
+  return false;
 }
 ```
 
@@ -1280,33 +1431,31 @@ function search(head, target) {
 ```javascript
 // Node structure
 class Node {
-    constructor(data) {
-        this.data = data;   // value stored
-        this.next = null;   // pointer to next node
-    }
+  constructor(data) {
+    this.data = data; // value stored
+    this.next = null; // pointer to next node
+  }
 }
 
 // Function to search value in linked list
 function search(head, target) {
+  // Temporary pointer for traversal
+  let temp = head;
 
-    // Temporary pointer for traversal
-    let temp = head;
-
-    // Traverse list one node at a time
-    while (temp !== null) {
-
-        // Compare node value with target
-        if (temp.data === target) {
-            // Target found, stop traversal
-            return true;
-        }
-
-        // Move to next node
-        temp = temp.next;
+  // Traverse list one node at a time
+  while (temp !== null) {
+    // Compare node value with target
+    if (temp.data === target) {
+      // Target found, stop traversal
+      return true;
     }
 
-    // Target not found after full traversal
-    return false;
+    // Move to next node
+    temp = temp.next;
+  }
+
+  // Target not found after full traversal
+  return false;
 }
 
 // Main execution
@@ -1351,9 +1500,9 @@ true
 
 **Why:**
 
-* If target is present in the **first node (head)**
-* Only **one comparison** is done
-* Loop stops immediately
+- If target is present in the **first node (head)**
+- Only **one comparison** is done
+- Loop stops immediately
 
 This is the **fastest possible scenario**.
 
@@ -1363,14 +1512,14 @@ This is the **fastest possible scenario**.
 
 **Why:**
 
-* Target is **not present**
+- Target is **not present**
   OR
-* Target is present at **last node**
+- Target is present at **last node**
 
 In both cases:
 
-* We must visit **all `n` nodes**
-* Each node requires one comparison
+- We must visit **all `n` nodes**
+- Each node requires one comparison
 
 So total work grows linearly with list size → **O(n)**.
 
@@ -1380,8 +1529,8 @@ So total work grows linearly with list size → **O(n)**.
 
 **Important Interview Insight:**
 
-* Although on average target may be found halfway (`n/2`),
-* Big-O notation **drops constants**
+- Although on average target may be found halfway (`n/2`),
+- Big-O notation **drops constants**
 
 So:
 
@@ -1397,16 +1546,16 @@ Hence average case is also **O(n)**.
 
 **Why:**
 
-* Only one extra pointer `temp`
-* No recursion
-* No auxiliary data structure
+- Only one extra pointer `temp`
+- No recursion
+- No auxiliary data structure
 
 Memory usage does **not grow** with input size.
 
 **Important clarification:**
 
-* Linked list nodes are input data
-* Space complexity counts only **extra memory used by algorithm**
+- Linked list nodes are input data
+- Space complexity counts only **extra memory used by algorithm**
 
 So extra space is constant → **O(1)**.
 
@@ -1420,8 +1569,8 @@ So extra space is constant → **O(1)**.
 
 Better search requires:
 
-* Sorted list + binary search (not possible directly)
-* Extra structure (hashing, tree, skip list)
+- Sorted list + binary search (not possible directly)
+- Extra structure (hashing, tree, skip list)
 
 ---
 
