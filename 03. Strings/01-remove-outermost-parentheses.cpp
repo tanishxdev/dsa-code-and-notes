@@ -4,9 +4,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
-    string removeOuterParentheses(string s) {
+    string removeOuterParentheses(string s)
+    {
         // 'balance' will track current depth of parentheses.
         // balance == 0  -> we are outside any current primitive.
         // balance >= 1  -> we are inside some primitive.
@@ -16,25 +18,31 @@ public:
         string result;
 
         // Traverse each character in the input string.
-        for (char ch : s) {
-            if (ch == '(') {
+        for (char ch : s)
+        {
+            if (ch == '(')
+            {
                 // If balance > 0, means we are already inside
                 // some primitive, so this '(' is NOT the outermost.
                 // Hence, we should keep it.
-                if (balance > 0) {
+                if (balance > 0)
+                {
                     result.push_back(ch);
                 }
 
                 // Now we go one level deeper.
                 balance++;
-            } else {
+            }
+            else
+            {
                 // For ')', we first move one level back (decrease depth).
                 balance--;
 
                 // After decreasing, if balance > 0,
                 // this ')' is not closing the outermost primitive.
                 // So we should keep it.
-                if (balance > 0) {
+                if (balance > 0)
+                {
                     result.push_back(ch);
                 }
             }
@@ -47,12 +55,13 @@ public:
 };
 
 // You can use this main for quick local testing.
-int main() {
+int main()
+{
     Solution sol;
 
-    cout << sol.removeOuterParentheses("(()())(())") << endl;           // Output: ()()()
-    cout << sol.removeOuterParentheses("(()())(())(()(()))") << endl;   // Output: ()()()()(())
-    cout << sol.removeOuterParentheses("()()") << endl;                 // Output: (empty line)
+    cout << sol.removeOuterParentheses("(()())(())") << endl;         // Output: ()()()
+    cout << sol.removeOuterParentheses("(()())(())(()(()))") << endl; // Output: ()()()()(())
+    cout << sol.removeOuterParentheses("()()") << endl;               // Output: (empty line)
 
     return 0;
 }
