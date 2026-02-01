@@ -53,7 +53,7 @@ int main()
     cout << "Root: " << root->data << endl;
     cout << "Left child of root: " << root->left->data << endl;
     cout << "Right child of root: " << root->right->data << endl;
-    
+
     // Tree is now created in memory
     return 0;
 }

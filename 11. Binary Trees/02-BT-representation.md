@@ -25,13 +25,13 @@ A **Binary Tree is NOT stored like an array**.
 
 It is represented using:
 
-* **Nodes**
-* **Pointers (C++) / References (JavaScript)**
+- **Nodes**
+- **Pointers (C++) / References (JavaScript)**
 
 Each node:
 
-* Stores its own data
-* Knows **where its children are**
+- Stores its own data
+- Knows **where its children are**
 
 This creates a **hierarchical structure**, not a linear one.
 
@@ -43,15 +43,15 @@ This creates a **hierarchical structure**, not a linear one.
 
 Arrays:
 
-* Are linear
-* Require contiguous memory
-* Do not model hierarchy naturally
+- Are linear
+- Require contiguous memory
+- Do not model hierarchy naturally
 
 Binary Trees:
 
-* Are non-linear
-* Nodes can live **anywhere in memory**
-* Connections are maintained via addresses
+- Are non-linear
+- Nodes can live **anywhere in memory**
+- Connections are maintained via addresses
 
 > **Tree = nodes + connections (addresses)**
 
@@ -72,18 +72,17 @@ Each node has **three parts**:
 
 ### Meaning of Each Part
 
-* `data` → value stored in the node
-* `left` → address/reference of left child
-* `right` → address/reference of right child
+- `data` → value stored in the node
+- `left` → address/reference of left child
+- `right` → address/reference of right child
 
 If a child does not exist → pointer/reference is `null`.
 
-![](https://static.takeuforward.org/content/-LNSBp0lD)
----
+## ![](https://static.takeuforward.org/content/-LNSBp0lD)
 
 ## 4. Binary Tree Node Structure (C++)
 
-### Exact Code (Same as Source, Clean + Explained)
+### Exact Code
 
 ```cpp
 #include <iostream>
@@ -109,24 +108,24 @@ public:
 
 ### Why Each Line Exists (Very Important)
 
-* `int data;`
+- `int data;`
   Stores actual information of the node
 
-* `Node* left;`
+- `Node* left;`
   Holds address of left child
 
-* `Node* right;`
+- `Node* right;`
   Holds address of right child
 
-* `left = nullptr; right = nullptr;`
+- `left = nullptr; right = nullptr;`
   Means:
 
   > This node currently has **no children**
 
 This avoids:
 
-* Garbage memory
-* Accidental traversal to random locations
+- Garbage memory
+- Accidental traversal to random locations
 
 ---
 
@@ -134,13 +133,13 @@ This avoids:
 
 `nullptr` means:
 
-* No node exists here
-* End of a branch
+- No node exists here
+- End of a branch
 
 Similar to:
 
-* `null` in linked list
-* `NULL` pointer
+- `null` in linked list
+- `NULL` pointer
 
 > **Leaf node = left == nullptr AND right == nullptr**
 
@@ -176,7 +175,44 @@ Each assignment stores an **address**.
 
 ## 7. Binary Tree Creation (C++ — Full Example)
 
-### Code (Exact Logic, Clean, Explained)
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+// -------------------- Node Structure --------------------
+// This structure represents a single node of a Binary Tree.
+// Each node contains:
+// 1. data  -> value stored in the node
+// 2. left  -> pointer/reference to the left child
+// 3. right -> pointer/reference to the right child
+
+// ---------------- Binary Tree Creation Logic ----------------
+// Logic to create a Binary Tree:
+// - We dynamically create nodes using heap memory.
+// - Root node is created first.
+// - Left and right children are attached recursively or manually.
+// - Tree can be built using:
+//   1. Recursion (preorder input based creation)
+//   2. Level order insertion using queue
+//   3. Manual linking for testing and learning
+
+int main()
+{
+    // Entry point of the program
+    // From here:
+    // - Binary Tree can be created
+    // - Traversals (Inorder, Preorder, Postorder) can be performed
+    // - Height, diameter, level order, etc. can be calculated
+
+    // Currently main is empty because:
+    // - Only structure and logic outline is defined
+    // - Actual implementation can be added step-by-step later
+
+    return 0; // Program ends successfully
+}
+```
+
+### Code
 
 ```cpp
 // Class containing the logic for Binary Tree creation
@@ -250,11 +286,11 @@ C560.left  -> D890
 
 ```javascript
 class Node {
-    constructor(data) {
-        this.data = data;   // value of node
-        this.left = null;   // left child reference
-        this.right = null;  // right child reference
-    }
+  constructor(data) {
+    this.data = data; // value of node
+    this.left = null; // left child reference
+    this.right = null; // right child reference
+  }
 }
 ```
 
@@ -264,16 +300,15 @@ class Node {
 
 ```javascript
 function createBinaryTree() {
+  // Create root
+  let root = new Node(1);
 
-    // Create root
-    let root = new Node(1);
+  // Create children
+  root.left = new Node(2);
+  root.right = new Node(3);
+  root.right.left = new Node(5);
 
-    // Create children
-    root.left = new Node(2);
-    root.right = new Node(3);
-    root.right.left = new Node(5);
-
-    return root;
+  return root;
 }
 ```
 
@@ -296,8 +331,8 @@ function createBinaryTree() {
 
 ### Creation Time
 
-* Each node creation → O(1)
-* Total nodes = `n`
+- Each node creation → O(1)
+- Total nodes = `n`
 
 ```
 Time Complexity = O(n)
@@ -305,7 +340,7 @@ Time Complexity = O(n)
 
 ### Space Complexity
 
-* One node per value
+- One node per value
 
 ```
 Space Complexity = O(n)
@@ -347,9 +382,9 @@ Using pointers/references stored in nodes.
 
 Arrays fail for:
 
-* Dynamic structure
-* Non-complete trees
-* Sparse hierarchies
+- Dynamic structure
+- Non-complete trees
+- Sparse hierarchies
 
 ---
 
@@ -362,6 +397,6 @@ Both `left` and `right` are `null`.
 ## Key Takeaway (Lock This)
 
 > A Binary Tree is nothing but **nodes connected by pointers**.
-> If you understand **node + connection**, everything else becomes traversal.
+> If you understand **node + connection**.
 
 ---
